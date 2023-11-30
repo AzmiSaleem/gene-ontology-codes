@@ -1,0 +1,39 @@
+---
+title: "GO_POSITIVEALLWEEKS"
+author: "AZMI"
+date: "2023-09-23"
+output: html_document
+---
+
+```{r}
+setwd("C:/Users/shiha/OneDrive/Desktop/SIG_GENES/PE_POS")
+list.files()
+```
+```{r}
+POS_GENES <- read.csv("PEUP_allweeks.csv")
+```
+```{r}
+library(fgsea)
+```
+```{r}
+library(clusterProfiler)
+```
+```{r}
+library(org.Hs.eg.db)
+```
+```{r}
+library(AnnotationDbi)
+```
+```{r}
+genes_to_test <- POS_GENES$GeneID
+```
+```{r}
+GO_results <- enrichGO(gene = genes_to_test, OrgDb = "org.Hs.eg.db", keyType = "ENSEMBL", ont = "CC") # BP = Biological property, CC= cellular component, MF = molecular function
+```
+
+```{r}
+as.data.frame(GO_results)
+```
+```{r}
+barplot(GO_results, showCategory = 10, title = "Enriched GO Terms")
+```
